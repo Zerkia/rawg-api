@@ -25,7 +25,7 @@ platformRouter.get("/", async (req, res) => {
     const platforms = await Platform.find({});
 
     const response: Response = {
-      count: 1,
+      count: platforms.length,
       results: [...platforms],
     };
 

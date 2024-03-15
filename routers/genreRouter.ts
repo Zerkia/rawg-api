@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
     const genres = await Genre.find({});
 
     const response: Response = {
-      count: 1,
+      count: genres.length,
       results: [...genres],
     };
 

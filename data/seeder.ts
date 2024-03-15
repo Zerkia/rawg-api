@@ -5,7 +5,8 @@ import Platform from "../models/platform";
 import data from "./game";
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/rawgDB")
+  .connect("mongodb://host.docker.internal:27017/rawgDB")
+  // .connect("mongodb://127.0.0.1:27017/rawgDB")
   .then(async () => {
     console.log("Connected to the database");
 
@@ -37,6 +38,11 @@ mongoose
     }
 
     console.log("Data seeded");
+
+    await mongoose.disconnect;
+    console.log("Disconnected from the database");
+
+    process.exit(0);
   })
   .catch((err) => {
     console.error("Error connecting to the database", err);

@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    volumes:
+      - mongodb-volume:/data/db
+    ports:
+      - "27018:27017"
+    restart: always
+
+  express_app:
+    image: rawgapi-niko473n
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/rawgdb
+
+  nginx_server:
+    image: nginx
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d:ro
+    ports:
+      - "4000:4000"
+    depends_on:
+      - express_app
+
+volumes:
+  mongodb-volume:
